@@ -1,0 +1,51 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath "io.insource:spring-ws-examples-starter:$version"
+	}
+}
+
+subprojects {
+	apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+
+	group = group
+	version = version
+
+	sourceCompatibility = 1.8
+
+	repositories {
+		mavenLocal()
+		jcenter()
+		maven {
+			url "https://repo.spring.io/milestone"
+		}
+		mavenCentral()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "io.insource:spring-ws-examples-starter:$version"
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+		}
+	}
+
+	dependencies {
+		compile 'javax.inject:javax.inject'
+		testCompile 'org.springframework.boot:spring-boot-starter-test'
+	}
+
+	bootRepackage {
+		mainClass = ''
+	}
+
+	bootRun {
+		systemProperties System.properties as Map<String, ?>
+		addResources = true
+	}
+}

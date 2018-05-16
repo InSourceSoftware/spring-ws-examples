@@ -1,0 +1,4 @@
+rootProject.name = 'spring-ws-examples'
+
+include 'rest-example'
+include 'soap-example'

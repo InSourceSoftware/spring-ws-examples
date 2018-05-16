@@ -1,0 +1,88 @@
+{
+  "$id": "https://github.com/api/v1/commits/repos",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "url": {
+      "type": "string"
+    },
+    "sha": {
+      "type": "string"
+    },
+    "html_url": {
+      "type": "string"
+    },
+    "comments_url": {
+      "type": "string"
+    },
+    "commit": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "Author.json"
+        },
+        "committer": {
+          "$ref": "Committer.json"
+        },
+        "message": {
+          "type": "string"
+        },
+        "tree": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "sha": {
+              "type": "string"
+            }
+          }
+        },
+        "comment_count": {
+          "type": "integer"
+        },
+        "verification": {
+          "type": "object",
+          "properties": {
+            "verified": {
+              "type": "boolean"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "signature": {
+              "type": "null"
+            },
+            "payload": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    "author": {
+      "$ref": "Author.json"
+    },
+    "committer": {
+      "$ref": "Committer.json"
+    },
+    "parents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "sha": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
