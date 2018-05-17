@@ -8,6 +8,7 @@
     <artifactId>spring-ws-examples-starter</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <name>spring-ws-examples-starter</name>
     <description>Parent pom for use with Gradle build as a bill of materials (BOM).</description>
 
@@ -17,6 +18,12 @@
             <url>http://repo.spring.io/plugins-release</url>
         </repository>
     </repositories>
+
+    <modules>
+        <module>rest-example</module>
+        <module>soap-example</module>
+        <module>soap-service</module>
+    </modules>
 
     <properties>
         <dependency-management-plugin.version>1.0.4.RELEASE</dependency-management-plugin.version>

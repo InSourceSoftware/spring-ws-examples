@@ -1,16 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.insource</groupId>
-    <artifactId>rest-example</artifactId>
+    <artifactId>soap-service</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>rest-example</name>
-    <description>Example project for making Rest API calls to external systems.</description>
+    <name>soap-service</name>
+    <description>Example SOAP service.</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -30,8 +30,8 @@
         <java.version>1.8</java.version>
         <jackson.version>2.9.3</jackson.version>
         <javax.inject.version>1</javax.inject.version>
-        <jsonschema2pojo.version>0.5.1</jsonschema2pojo.version>
         <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
+        <jaxb2-maven-plugin.version>1.6</jaxb2-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -42,6 +42,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
         </dependency>
     </dependencies>
 
@@ -77,8 +85,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.jsonschema2pojo</groupId>
-                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -97,58 +105,24 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.jsonschema2pojo</groupId>
-                    <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                    <version>${jsonschema2pojo.version}</version>
-                    <configuration>
-                        <includeAdditionalProperties>false</includeAdditionalProperties>
-                        <generateBuilders>false</generateBuilders>
-                        <usePrimitives>false</usePrimitives>
-                        <sourceDirectory>${basedir}/src/main/resources/schema</sourceDirectory>
-                        <outputDirectory>${project.build.directory}/generated-sources/js2p</outputDirectory>
-                        <targetPackage />
-                        <propertyWordDelimiters />
-                        <useLongIntegers>false</useLongIntegers>
-                        <useBigIntegers>false</useBigIntegers>
-                        <useDoubleNumbers>true</useDoubleNumbers>
-                        <useBigDecimals>true</useBigDecimals>
-                        <includeHashcodeAndEquals>false</includeHashcodeAndEquals>
-                        <includeToString>false</includeToString>
-                        <annotationStyle>jackson2</annotationStyle>
-                        <customAnnotator>org.jsonschema2pojo.NoopAnnotator</customAnnotator>
-                        <includeJsr303Annotations>false</includeJsr303Annotations>
-                        <sourceType>jsonschema</sourceType>
-                        <removeOldOutput>false</removeOldOutput>
-                        <outputEncoding>UTF-8</outputEncoding>
-                        <useJodaDates>false</useJodaDates>
-                        <formatDateTimes>true</formatDateTimes>
-                        <formatDates>true</formatDates>
-                        <formatTimes>true</formatTimes>
-                        <initializeCollections>true</initializeCollections>
-                        <classNamePrefix />
-                        <classNameSuffix />
-                        <fileExtensions />
-                        <includeConstructors>false</includeConstructors>
-                        <serializable>false</serializable>
-                        <includeAccessors>true</includeAccessors>
-                        <includeGetters>true</includeGetters>
-                        <includeSetters>true</includeSetters>
-                        <includeDynamicAccessors>false</includeDynamicAccessors>
-                        <includeDynamicGetters>false</includeDynamicGetters>
-                        <includeDynamicSetters>false</includeDynamicSetters>
-                        <dateType>java.time.LocalDate</dateType>
-                        <dateTimeType>java.time.LocalDateTime</dateTimeType>
-                    </configuration>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jaxb2-maven-plugin</artifactId>
+                    <version>${jaxb2-maven-plugin.version}</version>
                     <executions>
                         <execution>
+                            <id>xjc</id>
                             <goals>
-                                <goal>generate</goal>
+                                <goal>xjc</goal>
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <schemaDirectory>${project.basedir}/src/main/resources/</schemaDirectory>
+                        <outputDirectory>${project.build.directory}/generated-sources/jaxb2</outputDirectory>
+                        <clearOutputDir>false</clearOutputDir>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
     </build>
-
 </project>
