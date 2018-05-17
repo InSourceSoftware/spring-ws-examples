@@ -33,7 +33,7 @@ public class CountryProxy {
     }
 
     private <T> T doRequest(Object requestPayload, Class<T> responseClass) {
-        Object jaxbElement = webServiceTemplate.marshalSendAndReceive(requestPayload);
+        Object jaxbElement = webServiceTemplate.marshalSendAndReceive(BASE_URL, requestPayload);
         return responseClass.cast(JAXBIntrospector.getValue(jaxbElement));
     }
 }

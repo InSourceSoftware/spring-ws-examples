@@ -27,7 +27,6 @@ public class WebConfiguration {
     @Bean
     public WebServiceTemplate webServiceTemplate(SaajSoapMessageFactory saajSoapMessageFactory, Jaxb2Marshaller jaxb2Marshaller) {
         WebServiceTemplate webServiceTemplate = new WebServiceTemplate(saajSoapMessageFactory);
-        webServiceTemplate.setDefaultUri("http://localhost:8888/ws");
         webServiceTemplate.setMarshaller(jaxb2Marshaller);
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller);
 
