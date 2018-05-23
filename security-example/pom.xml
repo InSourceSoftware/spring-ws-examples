@@ -5,12 +5,19 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.insource</groupId>
-    <artifactId>spring-ws-examples-starter</artifactId>
+    <artifactId>security-example</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
-    <name>spring-ws-examples-starter</name>
-    <description>Parent pom for use with Gradle build as a bill of materials (BOM).</description>
+    <name>security-example</name>
+    <description>Example project for securing Rest endpoints.</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.13.RELEASE</version>
+        <relativePath />
+    </parent>
 
     <repositories>
         <repository>
@@ -19,37 +26,26 @@
         </repository>
     </repositories>
 
-    <modules>
-        <module>rest-example</module>
-        <module>soap-example</module>
-        <module>soap-service</module>
-        <module>security-example</module>
-    </modules>
-
     <properties>
-        <dependency-management-plugin.version>1.0.4.RELEASE</dependency-management-plugin.version>
-        <hibernate.version>5.2.12.Final</hibernate.version>
+        <java.version>1.8</java.version>
         <jackson.version>2.9.3</jackson.version>
         <javax.inject.version>1</javax.inject.version>
-        <jsonschema2pojo-gradle-plugin.version>0.5.1</jsonschema2pojo-gradle-plugin.version>
+        <jsonschema2pojo.version>0.5.1</jsonschema2pojo.version>
         <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>io.spring.gradle</groupId>
-            <artifactId>dependency-management-plugin</artifactId>
-            <version>${dependency-management-plugin.version}</version>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-gradle-plugin</artifactId>
-            <version>${spring-boot.version}</version>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jsonschema2pojo</groupId>
-            <artifactId>jsonschema2pojo-gradle-plugin</artifactId>
-            <version>${jsonschema2pojo-gradle-plugin.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
 
@@ -71,21 +67,41 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>javax.inject</groupId>
                 <artifactId>javax.inject</artifactId>
                 <version>${javax.inject.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jsonschema2pojo</groupId>
+                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
 </project>
