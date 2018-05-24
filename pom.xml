@@ -23,7 +23,7 @@
         <module>rest-example</module>
         <module>soap-example</module>
         <module>soap-service</module>
-        <module>security-example</module>
+        <module>preauth-security-example</module>
     </modules>
 
     <properties>
