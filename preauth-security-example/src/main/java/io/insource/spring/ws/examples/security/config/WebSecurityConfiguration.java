@@ -1,6 +1,6 @@
-package io.insource.spring.ws.examples.rest.config;
+package io.insource.spring.ws.examples.security.config;
 
-import io.insource.spring.ws.examples.rest.service.SimpleUserDetailsService;
+import io.insource.spring.ws.examples.security.service.SimpleUserDetailsService;
 
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;

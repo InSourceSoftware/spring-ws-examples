@@ -20,10 +20,11 @@
     </repositories>
 
     <modules>
+        <module>api-gateway-example</module>
+        <module>preauth-security-example</module>
         <module>rest-example</module>
         <module>soap-example</module>
         <module>soap-service</module>
-        <module>preauth-security-example</module>
     </modules>
 
     <properties>

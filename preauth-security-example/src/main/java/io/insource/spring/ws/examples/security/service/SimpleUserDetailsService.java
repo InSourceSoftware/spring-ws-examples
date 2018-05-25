@@ -1,4 +1,4 @@
-package io.insource.spring.ws.examples.rest.service;
+package io.insource.spring.ws.examples.security.service;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
