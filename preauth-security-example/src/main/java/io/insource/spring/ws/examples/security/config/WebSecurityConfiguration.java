@@ -5,6 +5,7 @@ import io.insource.spring.ws.examples.security.service.SimpleUserDetailsService;
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -22,17 +23,19 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@Order(-1)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.antMatcher("/**").authorizeRequests()
-            .antMatchers("/**/public/**").permitAll()
-            // TODO: Add matchers here to apply authorization globally, e.g.
-            //.antMatchers("**/auth/**").hasRole("ANONYMOUS")
-            .antMatchers("/**").authenticated()
-        .and()
+        http.antMatcher("/**")
             .addFilterAfter(preAuthenticationFilter(), RequestHeaderAuthenticationFilter.class)
-            .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+            .authorizeRequests()
+                .antMatchers("/**/public/**").permitAll()
+                // TODO: Add matchers here to apply authorization globally, e.g.
+                //.antMatchers("**/auth/**").hasRole("ANONYMOUS")
+                .antMatchers("/**").authenticated()
+            .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
     }
 
     @Bean

@@ -21,6 +21,7 @@
 
     <modules>
         <module>api-gateway-example</module>
+        <module>formlogin-security-example</module>
         <module>preauth-security-example</module>
         <module>rest-example</module>
         <module>soap-example</module>

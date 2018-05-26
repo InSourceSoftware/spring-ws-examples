@@ -1,0 +1,34 @@
+server:
+  port: 8888
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: password
+    role: USER
+
+
+app:
+  base-url: http://localhost:8080
+
+hystrix:
+  metrics:
+    enabled: false
+zuul:
+#  prefix: /api/v1
+#  strip-prefix: false
+  ignore-security-headers: false
+  sensitive-headers:
+  routes:
+    hello:
+      strip-prefix: false
+      path: /api/v1/hello
+      url: ${app.base-url}
+    login:
+      path: /login
+      url: ${app.base-url}
+    auth:
+      strip-prefix: false
+      path: /auth/*
+      url: ${app.base-url}
