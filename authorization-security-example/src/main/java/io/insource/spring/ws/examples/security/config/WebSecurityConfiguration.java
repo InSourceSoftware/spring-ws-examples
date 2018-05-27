@@ -1,10 +1,12 @@
 package io.insource.spring.ws.examples.security.config;
 
-import io.insource.spring.ws.examples.security.service.CachingUserDetailsService;
 import io.insource.spring.ws.examples.security.service.AuthorizationUserDetailsService;
 
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
+import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -15,10 +17,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.cache.SpringCacheBasedUserCache;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 @Configuration
 @EnableWebSecurity
+@EnableCaching
 @Order(-1)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static final String REALM_NAME = "MyRealm";
@@ -80,23 +81,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        CachingUserDetailsService userDetailsService = new CachingUserDetailsService(new AuthorizationUserDetailsService());
-        userDetailsService.setUserCache(userCache());
-
-        return userDetailsService;
-    }
-
-    @Bean
-    public UserCache userCache() {
-        try {
-            return new SpringCacheBasedUserCache(new ConcurrentMapCache("users"));
-        } catch (Exception ex) {
-            throw new IllegalStateException(ex);
-        }
+        return new AuthorizationUserDetailsService();
     }
 
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new Http401AuthenticationEntryPoint(REALM_NAME);
+    }
+
+    @Bean
+    public CacheManager cacheManager() {
+        SimpleCacheManager cacheManager = new SimpleCacheManager();
+        cacheManager.setCaches(Collections.singletonList(new ConcurrentMapCache("users")));
+
+        return cacheManager;
     }
 }

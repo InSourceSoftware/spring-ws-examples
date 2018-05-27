@@ -5,6 +5,7 @@ import io.insource.spring.ws.examples.security.exception.AuthorizationHeaderExce
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ public class AuthorizationUserDetailsService implements UserDetailsService {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationUserDetailsService.class);
 
     @Override
+    @Cacheable(value = "users", key = "#authorizationHeader")
     public UserDetails loadUserByUsername(String authorizationHeader) throws UsernameNotFoundException {
         logger.info("Loading user for Authorization header: " + authorizationHeader);
 
@@ -41,11 +43,6 @@ public class AuthorizationUserDetailsService implements UserDetailsService {
 
     private UserDetails loadUserDetails(String apiKey) {
         // TODO: Implement with your own logic to resolve API key (from Authentication header value)
-
-        // Note: In order for the user caching to work the Spring way, the API key
-        // must be used as the username. If you need to work around this, provide
-        // your own implementation of UserDetails which has both apiKey (principal)
-        // and your username as member fields.
-        return new User(apiKey, "", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+        return new User("user", apiKey, Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
     }
 }
