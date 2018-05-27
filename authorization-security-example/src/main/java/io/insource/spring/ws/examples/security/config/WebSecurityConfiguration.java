@@ -35,7 +35,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static final String REALM_NAME = "MyRealm";
     public static final String API_KEY_PARAM = "apikey";
     public static final Pattern AUTHORIZATION_HEADER_PATTERN = Pattern.compile(
-        String.format("%s %s=\"(\\S+)\"", WebSecurityConfiguration.REALM_NAME, API_KEY_PARAM)
+        String.format("%s %s=\"(\\S+)\"", REALM_NAME, API_KEY_PARAM)
     );
 
     @Override

@@ -29,10 +29,12 @@ public class AuthorizationUserDetailsService implements UserDetailsService {
             throw new AuthorizationHeaderException("Invalid authentication scheme found in Authorization header");
         }
 
+        // Check for apikey parameter
         if (!authorizationHeader.contains(WebSecurityConfiguration.API_KEY_PARAM)) {
             throw new AuthorizationHeaderException("Invalid authentication scheme found in Authorization header");
         }
 
+        // Check that the Authorization header matches the pattern
         Matcher matcher = WebSecurityConfiguration.AUTHORIZATION_HEADER_PATTERN.matcher(authorizationHeader);
         if (!matcher.matches()) {
             throw new AuthorizationHeaderException("Unable to parse apikey from Authorization header");

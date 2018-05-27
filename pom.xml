@@ -9,7 +9,7 @@
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>spring-ws-examples-starter</name>
+    <name>spring-ws-examples-parent</name>
     <description>Parent pom for use with Gradle build as a bill of materials (BOM).</description>
 
     <repositories>
@@ -23,6 +23,8 @@
         <module>api-gateway-example</module>
         <module>authorization-security-example</module>
         <module>basicauth-security-example</module>
+        <module>cloud-config-example</module>
+        <module>config-server</module>
         <module>formlogin-security-example</module>
         <module>preauth-security-example</module>
         <module>rest-example</module>
