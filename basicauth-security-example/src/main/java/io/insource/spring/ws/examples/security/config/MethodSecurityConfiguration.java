@@ -1,4 +1,4 @@
-package io.insource.spring.ws.examples.gateway.config;
+package io.insource.spring.ws.examples.security.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;

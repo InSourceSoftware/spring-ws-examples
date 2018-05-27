@@ -1,4 +1,4 @@
-package io.insource.spring.ws.examples.gateway.config;
+package io.insource.spring.ws.examples.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/**")
             .authorizeRequests()
-                .antMatchers("/", "/auth/status", "/auth/session").permitAll()
+                .antMatchers("/", "/auth/*").permitAll()
                 .anyRequest().authenticated()
             .and()
                 .anonymous().principal("anonymous").authorities("ROLE_ANONYMOUS")

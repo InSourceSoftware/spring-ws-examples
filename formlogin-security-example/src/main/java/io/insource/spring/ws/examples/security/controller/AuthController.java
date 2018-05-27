@@ -1,4 +1,4 @@
-package io.insource.spring.ws.examples.gateway.controller;
+package io.insource.spring.ws.examples.security.controller;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.insource</groupId>
-    <artifactId>api-gateway-example</artifactId>
+    <artifactId>basicauth-security-example</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>api-gateway-example</name>
-    <description>Example project for a secure API Gateway.</description>
+    <name>basicauth-security-example</name>
+    <description>Example project for securing REST endpoints with basic auth security.</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -48,8 +48,9 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zuul</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

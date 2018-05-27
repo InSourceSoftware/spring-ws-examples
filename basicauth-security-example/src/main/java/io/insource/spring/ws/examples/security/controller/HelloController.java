@@ -1,4 +1,4 @@
-package io.insource.spring.ws.examples.gateway.controller;
+package io.insource.spring.ws.examples.security.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

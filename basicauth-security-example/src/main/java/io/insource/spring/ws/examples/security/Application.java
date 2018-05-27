@@ -1,4 +1,4 @@
-package io.insource.spring.ws.examples.gateway;
+package io.insource.spring.ws.examples.security;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

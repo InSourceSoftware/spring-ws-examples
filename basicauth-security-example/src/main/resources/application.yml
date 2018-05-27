@@ -1,0 +1,12 @@
+app:
+  security:
+    basic:
+      realm: MyRealm
+      path: /**
+      users:
+        - name: user
+          password: password
+          roles: USER
+        - name: admin
+          password: admin
+          roles: ADMIN
