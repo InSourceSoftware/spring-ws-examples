@@ -1,6 +1,7 @@
 rootProject.name = 'spring-ws-examples'
 
 include 'api-gateway-example'
+include 'authorization-security-example'
 include 'basicauth-security-example'
 include 'formlogin-security-example'
 include 'preauth-security-example'

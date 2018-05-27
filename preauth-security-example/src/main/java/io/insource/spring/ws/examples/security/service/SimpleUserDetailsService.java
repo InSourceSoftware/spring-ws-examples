@@ -12,7 +12,7 @@ import java.util.Collections;
 public class SimpleUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO: Implement
+        // TODO: Implement with your own logic to resolve username
         return new User(username, "", Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
     }
 }

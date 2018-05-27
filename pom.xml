@@ -21,6 +21,7 @@
 
     <modules>
         <module>api-gateway-example</module>
+        <module>authorization-security-example</module>
         <module>basicauth-security-example</module>
         <module>formlogin-security-example</module>
         <module>preauth-security-example</module>
