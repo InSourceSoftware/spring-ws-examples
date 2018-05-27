@@ -1,7 +1,7 @@
 package io.insource.spring.ws.examples.security.config;
 
 import io.insource.spring.ws.examples.security.service.CachingUserDetailsService;
-import io.insource.spring.ws.examples.security.service.SimpleUserDetailsService;
+import io.insource.spring.ws.examples.security.service.AuthorizationUserDetailsService;
 
 import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.cache.concurrent.ConcurrentMapCache;
@@ -80,7 +80,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        CachingUserDetailsService userDetailsService = new CachingUserDetailsService(new SimpleUserDetailsService());
+        CachingUserDetailsService userDetailsService = new CachingUserDetailsService(new AuthorizationUserDetailsService());
         userDetailsService.setUserCache(userCache());
 
         return userDetailsService;

@@ -13,11 +13,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collections;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /* Not marked @Component to simplify WebSecurityConfiguration. */
-public class SimpleUserDetailsService implements UserDetailsService {
-    private static final Logger logger = LoggerFactory.getLogger(SimpleUserDetailsService.class);
+public class AuthorizationUserDetailsService implements UserDetailsService {
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationUserDetailsService.class);
 
     @Override
     public UserDetails loadUserByUsername(String authorizationHeader) throws UsernameNotFoundException {
