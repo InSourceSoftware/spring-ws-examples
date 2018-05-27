@@ -31,7 +31,7 @@ public class AuthorizationUserDetailsService implements UserDetailsService {
 
         // Check for apikey parameter
         if (!authorizationHeader.contains(WebSecurityConfiguration.API_KEY_PARAM)) {
-            throw new AuthorizationHeaderException("Invalid authentication scheme found in Authorization header");
+            throw new AuthorizationHeaderException("Unable to locate apikey parameter in Authorization header");
         }
 
         // Check that the Authorization header matches the pattern
