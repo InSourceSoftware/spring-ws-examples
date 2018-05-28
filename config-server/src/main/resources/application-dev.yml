@@ -1,0 +1,51 @@
+security:
+  basic:
+    enabled: false
+  user:
+    name: user
+    password: password
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          #
+          # See http://cloud.spring.io/spring-cloud-static/spring-cloud-config/1.4.3.RELEASE/single/spring-cloud-config.html#_authentication
+          # for examples of authenticated remote repositories.
+          #
+          # Use SSH if possible.
+          #
+          #uri: https://github.com/myorg/myrepo
+          #username: user
+          #password: password
+          #basedir: /tmp
+
+          uri: file://${user.home}/config-repo
+          search-paths: '*,{application}/*'
+
+          #
+          # This configuration allows for the following directory structure:
+          #
+          # /config-repo
+          # |-- application-dev.yml
+          # |-- application-prod.yml
+          # |-- application.yml
+          # |-- /config-client
+          #     |-- config-client-dev.yml
+          #     |-- config-client-prod.yml
+          #     |-- config-client.yml
+          #
+          # The order is evaluated as follows:
+          # 1. If a value is specified in an app-specific profile yaml/properties file, it is selected first.
+          # 2. If a value is specified in a global profile yaml/properties file, it is selected second.
+          # 3. If a value is specified in an app-specific global yaml/properties file, it is selected third.
+          # 4. If a value is specified in a global yaml/properties file, it is selected fourth.
+          # 5. If a value is not specified elsewhere, the local/default value is used (if any).
+          #
+          # This means that (as per the docs) the config server wins in all cases.
+          #
+          # Only if the value is not specified in the repository files is the
+          # local server environment searched, and follows effectively the same
+          # rules as above.
+          #

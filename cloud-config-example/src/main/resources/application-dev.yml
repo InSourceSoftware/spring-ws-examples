@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      username: user
+      password: password
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      label: master
+
+my:
+  var: Is Set locally.
