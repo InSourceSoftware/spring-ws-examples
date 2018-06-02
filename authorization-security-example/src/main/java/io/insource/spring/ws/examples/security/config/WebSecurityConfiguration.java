@@ -17,8 +17,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
@@ -47,13 +46,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint());
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+            .and()
+                .csrf().disable();
     }
 
     @Bean
     public RequestHeaderAuthenticationFilter preAuthenticationFilter() {
         RequestHeaderAuthenticationFilter preAuthenticationFilter = new RequestHeaderAuthenticationFilter();
         preAuthenticationFilter.setPrincipalRequestHeader("Authorization");
+        preAuthenticationFilter.setCredentialsRequestHeader("Authorization");
         preAuthenticationFilter.setAuthenticationManager(authenticationManager());
         preAuthenticationFilter.setExceptionIfHeaderMissing(false);
 
@@ -75,12 +77,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserDetailsByNameServiceWrapper<PreAuthenticatedAuthenticationToken> userDetailsServiceWrapper() {
-        return new UserDetailsByNameServiceWrapper<>(userDetailsService());
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
+    public AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> userDetailsServiceWrapper() {
         return new AuthorizationUserDetailsService();
     }
 

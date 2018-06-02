@@ -7,21 +7,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 
 import java.util.Collections;
 import java.util.regex.Matcher;
 
 /* Not marked @Component to simplify WebSecurityConfiguration. */
-public class AuthorizationUserDetailsService implements UserDetailsService {
+public class AuthorizationUserDetailsService implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationUserDetailsService.class);
 
     @Override
-    @Cacheable(value = "users", key = "#authorizationHeader")
-    public UserDetails loadUserByUsername(String authorizationHeader) throws UsernameNotFoundException {
+    @Cacheable(value = "users", key = "#token")
+    public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken token) throws UsernameNotFoundException {
+        String authorizationHeader = token.getCredentials().toString();
         logger.info("Loading user for Authorization header: " + authorizationHeader);
 
         // Check authentication scheme
