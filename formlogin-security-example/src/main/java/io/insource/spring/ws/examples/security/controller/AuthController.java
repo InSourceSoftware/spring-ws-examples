@@ -10,6 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
@@ -40,9 +41,10 @@ public class AuthController {
     @GetMapping("/auth/session")
     public SessionResponse getSession() {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpSession httpSession = requestAttributes.getRequest().getSession(false);
+        HttpServletRequest request = requestAttributes.getRequest();
+        HttpSession httpSession = request.getSession(false);
         String sessionId = httpSession.getId();
-        String csrfToken = csrfTokenRepository.loadToken(requestAttributes.getRequest()).getToken();
+        String csrfToken = csrfTokenRepository.loadToken(request).getToken();
 
         return new SessionResponse(sessionId, csrfToken);
     }
