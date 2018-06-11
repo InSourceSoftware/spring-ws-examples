@@ -24,8 +24,9 @@
         <module>authorization-security-example</module>
         <module>basicauth-security-example</module>
         <module>cloud-config-example</module>
-        <module>customauth-security-example</module>
         <module>config-server</module>
+        <module>custom-permissions-example</module>
+        <module>customauth-security-example</module>
         <module>formlogin-security-example</module>
         <module>preauth-security-example</module>
         <module>rest-example</module>

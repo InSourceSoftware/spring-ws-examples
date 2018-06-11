@@ -1,0 +1,7 @@
+security:
+  basic:
+    enabled: true
+  user:
+    name: user
+    password: password
+    role: USER
