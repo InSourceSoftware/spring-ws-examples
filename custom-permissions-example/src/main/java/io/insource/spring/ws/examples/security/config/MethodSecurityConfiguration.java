@@ -2,26 +2,26 @@ package io.insource.spring.ws.examples.security.config;
 
 import io.insource.spring.ws.examples.security.permissions.PermissionEvaluatorManager;
 import io.insource.spring.ws.examples.security.permissions.TargetedPermissionEvaluator;
-import io.insource.spring.ws.examples.security.permissions.impl.EmployeePermissionEvaluator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
-import javax.inject.Inject;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class MethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
     private final List<TargetedPermissionEvaluator> permissionEvaluators;
 
-    @Inject
+    @Autowired
     public MethodSecurityConfiguration(List<TargetedPermissionEvaluator> permissionEvaluators) {
         this.permissionEvaluators = permissionEvaluators;
     }
@@ -35,8 +35,14 @@ public class MethodSecurityConfiguration extends GlobalMethodSecurityConfigurati
     }
 
     @Bean
-    @Primary
     public PermissionEvaluator permissionEvaluator() {
-        return new PermissionEvaluatorManager(permissionEvaluators);
+        Map<String, PermissionEvaluator> map = new HashMap<>();
+
+        // Build lookup table of PermissionEvaluator by supported target type
+        for (TargetedPermissionEvaluator permissionEvaluator : permissionEvaluators) {
+            map.put(permissionEvaluator.getTargetType(), permissionEvaluator);
+        }
+
+        return new PermissionEvaluatorManager(map);
     }
 }

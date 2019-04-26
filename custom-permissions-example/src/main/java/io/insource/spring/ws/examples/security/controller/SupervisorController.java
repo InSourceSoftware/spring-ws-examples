@@ -1,6 +1,5 @@
 package io.insource.spring.ws.examples.security.controller;
 
-import io.insource.spring.ws.examples.security.model.Employee;
 import io.insource.spring.ws.examples.security.model.Supervisor;
 import io.insource.spring.ws.examples.security.repository.SupervisorRepository;
 
@@ -19,17 +18,17 @@ public class SupervisorController {
 
     @GetMapping("/supervisors")
     public List<Supervisor> getSupervisors() {
-        return supervisorRepository.findSupervisors();
+        return supervisorRepository.findAll();
     }
 
     @GetMapping("/supervisors/{name}")
     public Supervisor getSupervisor(@PathVariable("name") String name) {
-        return supervisorRepository.findSupervisor(name);
+        return supervisorRepository.findOne(name);
     }
 
-    @GetMapping("/supervisors/search/{permission}.{ext}")
     @PostFilter("hasPermission(filterObject, #permission + '.' + #ext)")
+    @GetMapping("/supervisors/search/{permission}.{ext}")
     public List<Supervisor> getEmployeesWithPermission(@PathVariable("permission") String permission, @PathVariable("ext") String ext) {
-        return supervisorRepository.findSupervisors();
+        return supervisorRepository.findAll();
     }
 }

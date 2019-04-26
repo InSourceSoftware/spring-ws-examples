@@ -41,7 +41,7 @@ public class SupervisorPermissionEvaluator implements TargetedPermissionEvaluato
 
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
-        Supervisor domainObject = supervisorRepository.findSupervisor((String) targetId);
+        Supervisor domainObject = supervisorRepository.findOne((String) targetId);
         return hasPermission(authentication, domainObject, permission);
     }
 }

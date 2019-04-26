@@ -5,19 +5,14 @@ import org.springframework.security.access.expression.DenyAllPermissionEvaluator
 import org.springframework.security.core.Authentication;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PermissionEvaluatorManager implements PermissionEvaluator {
     private static final PermissionEvaluator denyAll = new DenyAllPermissionEvaluator();
-    private final Map<String, TargetedPermissionEvaluator> permissionEvaluators;
+    private final Map<String, PermissionEvaluator> permissionEvaluators;
 
-    public PermissionEvaluatorManager(List<TargetedPermissionEvaluator> permissionEvaluators) {
-        this.permissionEvaluators = new HashMap<>();
-        for (TargetedPermissionEvaluator permissionEvaluator : permissionEvaluators) {
-            this.permissionEvaluators.put(permissionEvaluator.getTargetType(), permissionEvaluator);
-        }
+    public PermissionEvaluatorManager(Map<String, PermissionEvaluator> permissionEvaluators) {
+        this.permissionEvaluators = permissionEvaluators;
     }
 
     @Override
