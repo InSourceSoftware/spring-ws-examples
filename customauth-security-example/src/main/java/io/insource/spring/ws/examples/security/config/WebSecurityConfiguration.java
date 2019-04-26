@@ -3,6 +3,7 @@ package io.insource.spring.ws.examples.security.config;
 import io.insource.spring.ws.examples.security.filter.CustomAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.security.Http401AuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -39,6 +41,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
             .and()
                 .csrf().csrfTokenRepository(csrfTokenRepository())
+            .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
             .and()
                 .formLogin().disable();
     }
@@ -85,6 +89,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public CsrfTokenRepository csrfTokenRepository() {
         return new LazyCsrfTokenRepository(new HttpSessionCsrfTokenRepository());
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new Http401AuthenticationEntryPoint("MyRealm");
     }
 
     @Bean
