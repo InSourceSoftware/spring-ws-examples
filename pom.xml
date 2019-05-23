@@ -37,7 +37,7 @@
     <properties>
         <dependency-management-plugin.version>1.0.4.RELEASE</dependency-management-plugin.version>
         <hibernate.version>5.2.12.Final</hibernate.version>
-        <jackson.version>2.9.3</jackson.version>
+        <jackson.version>2.9.9</jackson.version>
         <javax.inject.version>1</javax.inject.version>
         <jsonschema2pojo-gradle-plugin.version>0.5.1</jsonschema2pojo-gradle-plugin.version>
         <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
