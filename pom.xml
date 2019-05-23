@@ -32,6 +32,8 @@
         <module>rest-example</module>
         <module>soap-example</module>
         <module>soap-service</module>
+        <module>stateless-session-api-example</module>
+        <module>stateless-session-gateway-example</module>
     </modules>
 
     <properties>
