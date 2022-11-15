@@ -28,7 +28,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <jackson.version>2.10.0</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <javax.inject.version>1</javax.inject.version>
         <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
         <jaxb2-maven-plugin.version>1.6</jaxb2-maven-plugin.version>
